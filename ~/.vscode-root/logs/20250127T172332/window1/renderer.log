@@ -1,0 +1,33 @@
+2025-01-27 17:23:45.332 [warning] Via 'product.json#extensionEnabledApiProposals' extension 'ms-vscode.vscode-selfhost-test-provider' wants API proposal 'attributableCoverage' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2025-01-27 17:23:45.334 [warning] Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.python' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2025-01-27 17:23:45.336 [warning] Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.debugpy' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2025-01-27 17:23:48.031 [info] Started local extension host with pid 229304.
+2025-01-27 17:23:59.808 [info] Settings Sync: Account status changed from uninitialized to unavailable
+2025-01-27 17:24:01.725 [info] [perf] Render performance baseline is 180ms
+2025-01-27 17:24:03.518 [error] Timed out waiting for authentication provider to register
+2025-01-27 20:28:37.400 [error] [network] #37: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 20:28:37.442 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 20:33:37.424 [error] [network] #38: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 20:33:37.513 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 20:38:37.541 [error] [network] #39: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 20:38:37.719 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 20:43:37.746 [error] [network] #40: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 20:43:37.900 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 20:48:37.912 [error] [network] #41: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 20:48:38.013 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 20:53:38.039 [error] [network] #42: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 20:53:38.226 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 20:58:38.253 [error] [network] #43: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 20:58:38.435 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 21:03:38.443 [error] [network] #44: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 21:03:38.517 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 21:08:38.544 [error] [network] #45: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 21:08:38.722 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 21:13:38.749 [error] [network] #46: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 21:13:38.932 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 21:18:38.959 [error] [network] #47: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 21:18:39.138 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 21:23:39.166 [error] [network] #48: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 21:23:39.348 [warning] Failed to fetch chat participant registry Failed to fetch
+2025-01-27 21:28:39.373 [error] [network] #49: https://main.vscode-cdn.net/extensions/chat.json - error GET Failed to fetch
+2025-01-27 21:28:39.555 [warning] Failed to fetch chat participant registry Failed to fetch

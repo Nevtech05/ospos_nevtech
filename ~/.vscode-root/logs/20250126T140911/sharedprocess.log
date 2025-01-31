@@ -1,0 +1,16 @@
+2025-01-26 14:10:30.383 [info] Getting Manifest... pkief.material-icon-theme
+2025-01-26 14:10:31.403 [info] Installing extension: pkief.material-icon-theme {"isMachineScoped":false,"installPreReleaseVersion":false,"pinned":false,"profileLocation":{"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"},"installOnlyNewlyAddedFromExtensionPack":true,"isApplicationScoped":false,"productVersion":{"version":"1.96.4","date":"2025-01-16T00:16:19.038Z"}}
+2025-01-26 14:10:45.938 [info] Extension signature verification result for pkief.material-icon-theme: Success. Executed: true. Duration: 7628ms.
+2025-01-26 14:10:49.239 [info] Extracted extension to file:///root/.vscode/extensions/pkief.material-icon-theme-5.19.0: pkief.material-icon-theme
+2025-01-26 14:10:49.451 [info] Renamed to /root/.vscode/extensions/pkief.material-icon-theme-5.19.0
+2025-01-26 14:10:49.590 [error] [uncaught exception in sharedProcess]: Error: ENOENT: no such file or directory, stat '/root/.vscode/extensions/extensions.json.vsctmp': EntryNotFound (FileSystemError): Error: ENOENT: no such file or directory, stat '/root/.vscode/extensions/extensions.json.vsctmp'
+    at Gm.create (file:///usr/share/code/resources/app/out/vs/code/electron-utility/sharedProcess/sharedProcessMain.js:35:39624)
+    at xs (file:///usr/share/code/resources/app/out/vs/code/electron-utility/sharedProcess/sharedProcessMain.js:35:39731)
+    at Vr.ib (file:///usr/share/code/resources/app/out/vs/code/electron-utility/sharedProcess/sharedProcessMain.js:78:22778)
+    at Vr.stat (file:///usr/share/code/resources/app/out/vs/code/electron-utility/sharedProcess/sharedProcessMain.js:78:16010)
+    at async wh.stat (file:///usr/share/code/resources/app/out/vs/code/electron-utility/sharedProcess/sharedProcessMain.js:77:85488)
+    at async fh.Ab (file:///usr/share/code/resources/app/out/vs/code/electron-utility/sharedProcess/sharedProcessMain.js:77:67180)
+2025-01-26 14:10:49.652 [info] Extension installed successfully: pkief.material-icon-theme vscode-userdata:/root/.vscode/extensions/extensions.json
+2025-01-26 14:53:33.619 [error] [network] #34: https://main.vscode-cdn.net/extensions/marketplace.json - error GET net::ERR_TIMED_OUT
+2025-01-26 16:06:33.422 [error] [network] #108: https://mobile.events.data.microsoft.com/OneCollector/1.0?cors=true&content-type=application/x-json-stream - error POST net::ERR_NAME_NOT_RESOLVED
+2025-01-26 16:07:02.853 [error] [network] #109: https://mobile.events.data.microsoft.com/OneCollector/1.0?cors=true&content-type=application/x-json-stream - error POST net::ERR_NAME_NOT_RESOLVED

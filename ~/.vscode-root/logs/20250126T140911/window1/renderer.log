@@ -1,0 +1,17 @@
+2025-01-26 14:09:15.500 [warning] Via 'product.json#extensionEnabledApiProposals' extension 'ms-vscode.vscode-selfhost-test-provider' wants API proposal 'attributableCoverage' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2025-01-26 14:09:15.545 [warning] Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.python' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2025-01-26 14:09:15.546 [warning] Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.debugpy' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2025-01-26 14:09:15.798 [warning] Creation of workbench contribution 'workbench.chat.autoSaveDisabler' took 23ms.
+2025-01-26 14:09:17.053 [info] Started local extension host with pid 52548.
+2025-01-26 14:09:20.801 [info] Settings Sync: Account status changed from uninitialized to unavailable
+2025-01-26 14:09:25.962 [info] [perf] Render performance baseline is 191ms
+2025-01-26 14:09:27.343 [error] Timed out waiting for authentication provider to register
+2025-01-26 14:10:15.193 [error] [network] #2: https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery - error POST Canceled
+2025-01-26 14:10:15.334 [error] [network] #4: https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery - error POST Canceled
+2025-01-26 15:30:31.275 [warning] [File Watcher (node.js)] Watcher shutdown because watched path got deleted
+2025-01-26 15:30:32.556 [error] An unknown error occurred. Please consult the log for more details.: EntryNotFound (FileSystemError): 
+	at l.readFile (/usr/share/code/resources/app/extensions/git/dist/main.js:2:919027)
+2025-01-26 15:31:38.609 [info] Extension host (LocalProcess pid: 52548) is unresponsive.
+2025-01-26 15:31:38.657 [info] Extension host (LocalProcess pid: 52548) is responsive.
+2025-01-26 15:31:38.722 [info] UNRESPONSIVE extension host: received responsive event and cancelling profiling session
+2025-01-26 15:31:40.545 [info] UNRESPONSIVE extension host: starting to profile NOW
