@@ -6,7 +6,6 @@
 	<title><?php echo $this->config->item('company') . ' | ' . $this->lang->line('common_powered_by') . ' OSPOS ' . $this->config->item('application_version') ?></title>
 	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="<?php echo 'dist/bootswatch/' . (empty($this->config->item('theme')) ? 'flatly' : $this->config->item('theme')) . '/bootstrap.min.css' ?>"/>
-
 	<?php if ($this->input->cookie('debug') == 'true' || $this->input->get('debug') == 'true') : ?>
 		<!-- bower:css -->
 		<link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery-ui.css" />
@@ -135,6 +134,12 @@
 
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
+					<li>
+		<a href="<?php echo site_url('repairs'); ?>">
+			<img src="<?php echo base_url('assets/icons/repair.png'); ?>" width="20"> Repairs
+		</a>
+	</li>
+
 						<?php foreach($allowed_modules as $module): ?>
 							<li class="<?php echo $module->module_id == $this->uri->segment(1) ? 'active' : ''; ?>">
 								<a href="<?php echo site_url("$module->module_id"); ?>" title="<?php echo $this->lang->line("module_" . $module->module_id); ?>" class="menu-icon">
