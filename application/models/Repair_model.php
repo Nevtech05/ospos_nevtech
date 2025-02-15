@@ -46,4 +46,30 @@ class Repair_model extends CI_Model {
         $this->db->where('repair_id', $repair_id);
         return $this->db->delete('ospos_repair_orders');
     }
+
+    // ✅ Get table headers for the repairs table (For DataTable or UI)
+    public function get_table_headers() {
+        return [
+            ['field' => 'repair_id', 'title' => 'Repair ID'],
+            ['field' => 'customer_id', 'title' => 'Customer ID'],
+            ['field' => 'item_name', 'title' => 'Item Name'],
+            ['field' => 'serial_number', 'title' => 'Serial Number'],
+            ['field' => 'issue_description', 'title' => 'Issue'],
+            ['field' => 'status', 'title' => 'Status'],
+            ['field' => 'estimated_cost', 'title' => 'Estimated Cost'],
+            ['field' => 'actual_cost', 'title' => 'Actual Cost'],
+            ['field' => 'technician_id', 'title' => 'Technician'],
+            ['field' => 'created_at', 'title' => 'Created At'],
+            ['field' => 'updated_at', 'title' => 'Updated At'],
+        ];
+    }
+
+    // ✅ Get available status filters for repairs
+    public function get_filters() {
+        return [
+            'pending' => 'Pending',
+            'in_progress' => 'In Progress',
+            'completed' => 'Completed',
+        ];
+    }
 }

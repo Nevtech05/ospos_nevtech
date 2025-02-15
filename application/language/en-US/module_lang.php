@@ -45,3 +45,5 @@ $lang["module_timeclocks"] = "";
 $lang["module_timeclocks_categories"] = "";
 $lang["module_timeclocks_categories_desc"] = "";
 $lang["module_timeclocks_desc"] = "";
+$lang['module_repairs'] = 'Repairs';
+$lang['module_repairs_desc'] = 'Manage repair orders and services.';

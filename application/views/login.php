@@ -15,7 +15,7 @@
     <section>
         <div class="box">
             <div class="form">
-                <img src="images/user.jpg" class="user" alt="">
+                <img src="images/logo.png" class="user" alt="">
                 <h2><?php echo $this->lang->line('login_welcome', $this->lang->line('common_software_short')); ?></h2>
 
                 <?php echo form_open('login'); ?>

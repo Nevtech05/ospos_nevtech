@@ -31,5 +31,5 @@
         </tr>
     <?php endforeach; ?>
 </table>
-
+<!--  -->
 <?php $this->load->view("partial/footer"); ?>

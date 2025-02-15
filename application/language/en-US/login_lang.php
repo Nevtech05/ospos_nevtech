@@ -10,4 +10,4 @@ $lang["login_logout"] = "Logout";
 $lang["login_migration_needed"] = "A database migration to POS will start after login.";
 $lang["login_password"] = "Password";
 $lang["login_username"] = "Username";
-$lang["login_welcome"] = "KK MINIMART POS";
+$lang["login_welcome"] = "MY SHOP";

@@ -12,31 +12,10 @@ class Repairs extends CI_Controller {
     }
 
     public function index() {
-        $person_id = $this->session->userdata('person_id'); // Get user ID from session
+        $data['table_headers'] = json_encode($this->Repair_model->get_table_headers());
+        $data['filters'] = $this->Repair_model->get_filters();
 
-        // Ensure user is logged in
-        if (!$person_id) {
-            redirect('login'); // Redirect to login if not authenticated
-        }
-
-        // Fetch user information
-        $user_info = $this->Employee->get_info($person_id);
-
-        // Fetch allowed modules and ensure it's an array
-        $allowed_modules = $this->Module->get_allowed_home_modules($person_id);
-        if (!is_array($allowed_modules)) {
-            $allowed_modules = []; // Prevents invalid argument error in foreach
-        }
-
-        // Fetch repairs
-        $data['repairs'] = $this->Repair_model->get_all_repairs();
-        $data['allowed_modules'] = $allowed_modules; // ✅ Renamed for consistency
-        $data['user_info'] = $user_info;
-
-        // Load views
-        $this->load->view("partial/header", $data);
-        $this->load->view("repairs/index", $data);
-        $this->load->view("partial/footer");
+        $this->load->view('repairs/manage', $data);
     }
 
     public function view($repair_id) {
@@ -90,4 +69,3 @@ class Repairs extends CI_Controller {
         redirect('repairs');
     }
 }
-?>
