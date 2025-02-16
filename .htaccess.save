@@ -1,18 +1,4 @@
-# Redirect to public page
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-
-  # Allow access to Let's Encrypt challenge
-  RewriteCond %{REQUEST_URI} !^public$
-  RewriteCond %{REQUEST_URI} !^/.well-known/acme-challenge [NC]
-
-  # Fix mod_rewrite rejecting special characters in query strings
-  RewriteCond %{QUERY_STRING} ^(.*[^a-zA-Z0-9._=&-].*)$ [NC]
-  RewriteRule ^(.*)$ $1?%1 [R=301,L]
-
-  # Redirect everything to /public/
-  RewriteRule "^(.*)$" "/public/$1" [R=301,L]
-</IfModule>
+# redirect to public page
 
 
 # disable directory browsing

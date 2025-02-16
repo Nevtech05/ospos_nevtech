@@ -254,119 +254,80 @@ class Sales extends Secure_Controller
 	}
 
 	// Multiple Payments
-	public function add_payment()
-	{
-		$data = array();
+	// Multiple Payments
+public function add_payment()
+{
+    $data = array();
 
-		$payment_type = $this->input->post('payment_type');
-		if($payment_type !== $this->lang->line('sales_giftcard'))
-		{
-			$this->form_validation->set_rules('amount_tendered', 'lang:sales_amount_tendered', 'trim|required|callback_numeric');
-		}
-		else
-		{
-			$this->form_validation->set_rules('amount_tendered', 'lang:sales_amount_tendered', 'trim|required');
-		}
+    $payment_type = $this->input->post('payment_type');
+    if ($payment_type !== $this->lang->line('sales_giftcard')) {
+        $this->form_validation->set_rules('amount_tendered', 'lang:sales_amount_tendered', 'trim|required|callback_numeric');
+    } else {
+        $this->form_validation->set_rules('amount_tendered', 'lang:sales_amount_tendered', 'trim|required');
+    }
 
-		if($this->form_validation->run() == FALSE)
-		{
-			if($payment_type === $this->lang->line('sales_giftcard'))
-			{
-				$data['error'] = $this->lang->line('sales_must_enter_numeric_giftcard');
-			}
-			else
-			{
-				$data['error'] = $this->lang->line('sales_must_enter_numeric');
-			}
-		}
-		else
-		{
-			if($payment_type === $this->lang->line('sales_giftcard'))
-			{
-				// in case of giftcard payment the register input amount_tendered becomes the giftcard number
-				$giftcard_num = $this->input->post('amount_tendered');
+    if ($this->form_validation->run() == FALSE) {
+        if ($payment_type === $this->lang->line('sales_giftcard')) {
+            $data['error'] = $this->lang->line('sales_must_enter_numeric_giftcard');
+        } else {
+            $data['error'] = $this->lang->line('sales_must_enter_numeric');
+        }
+    } else {
+        if ($payment_type === 'Mpesa') {
+            $phone = $this->input->post('phone'); 
+            $account_reference = $this->input->post('account_reference');
+            $payment_amount = $this->input->post('amount_tendered');
 
-				$payments = $this->sale_lib->get_payments();
-				$payment_type = $payment_type . ':' . $giftcard_num;
-				$current_payments_with_giftcard = isset($payments[$payment_type]) ? $payments[$payment_type]['payment_amount'] : 0;
-				$cur_giftcard_value = $this->Giftcard->get_giftcard_value($giftcard_num);
-				$cur_giftcard_customer = $this->Giftcard->get_giftcard_customer($giftcard_num);
-				$customer_id = $this->sale_lib->get_customer();
-				if(isset($cur_giftcard_customer) && $cur_giftcard_customer != $customer_id)
-				{
-					$data['error'] = $this->lang->line('giftcards_cannot_use', $giftcard_num);
-				}
-				elseif(($cur_giftcard_value - $current_payments_with_giftcard) <= 0 && $this->sale_lib->get_mode() == 'sale')
-				{
-					$data['error'] = $this->lang->line('giftcards_remaining_balance', $giftcard_num, to_currency($cur_giftcard_value));
-				}
-				else
-				{
-					$new_giftcard_value = $this->Giftcard->get_giftcard_value($giftcard_num) - $this->sale_lib->get_amount_due();
-					$new_giftcard_value = $new_giftcard_value >= 0 ? $new_giftcard_value : 0;
-					$this->sale_lib->set_giftcard_remainder($new_giftcard_value);
-					$new_giftcard_value = str_replace('$', '\$', to_currency($new_giftcard_value));
-					$data['warning'] = $this->lang->line('giftcards_remaining_balance', $giftcard_num, $new_giftcard_value);
-					$amount_tendered = min($this->sale_lib->get_amount_due(), $this->Giftcard->get_giftcard_value($giftcard_num));
+            $this->load->library('Mpesa');
+            $response = $this->mpesa->simulateC2B($phone, $payment_amount, $account_reference);
 
-					$this->sale_lib->add_payment($payment_type, $amount_tendered);
-				}
-			}
-			elseif($payment_type === $this->lang->line('sales_rewards'))
-			{
-				$customer_id = $this->sale_lib->get_customer();
-				$package_id = $this->Customer->get_info($customer_id)->package_id;
-				if(!empty($package_id))
-				{
-					$package_name = $this->Customer_rewards->get_name($package_id);
-					$points = $this->Customer->get_info($customer_id)->points;
-					$points = ($points == NULL ? 0 : $points);
+            if ($response && isset($response->ResponseCode) && $response->ResponseCode == "0") {
+                $data['success'] = "Mpesa payment simulated successfully.";
+                $this->sale_lib->add_payment($payment_type, $payment_amount);
+            } else {
+                $data['error'] = "Mpesa payment failed.";
+            }
+        } elseif ($payment_type === $this->lang->line('sales_giftcard')) {
+            // Existing gift card logic remains unchanged
+            $giftcard_num = $this->input->post('amount_tendered');
+            $payments = $this->sale_lib->get_payments();
+            $payment_type = $payment_type . ':' . $giftcard_num;
+            $current_payments_with_giftcard = isset($payments[$payment_type]) ? $payments[$payment_type]['payment_amount'] : 0;
+            $cur_giftcard_value = $this->Giftcard->get_giftcard_value($giftcard_num);
+            $cur_giftcard_customer = $this->Giftcard->get_giftcard_customer($giftcard_num);
+            $customer_id = $this->sale_lib->get_customer();
+            if (isset($cur_giftcard_customer) && $cur_giftcard_customer != $customer_id) {
+                $data['error'] = $this->lang->line('giftcards_cannot_use', $giftcard_num);
+            } elseif (($cur_giftcard_value - $current_payments_with_giftcard) <= 0 && $this->sale_lib->get_mode() == 'sale') {
+                $data['error'] = $this->lang->line('giftcards_remaining_balance', $giftcard_num, to_currency($cur_giftcard_value));
+            } else {
+                $new_giftcard_value = $this->Giftcard->get_giftcard_value($giftcard_num) - $this->sale_lib->get_amount_due();
+                $new_giftcard_value = $new_giftcard_value >= 0 ? $new_giftcard_value : 0;
+                $this->sale_lib->set_giftcard_remainder($new_giftcard_value);
+                $new_giftcard_value = str_replace('$', '\$', to_currency($new_giftcard_value));
+                $data['warning'] = $this->lang->line('giftcards_remaining_balance', $giftcard_num, $new_giftcard_value);
+                $amount_tendered = min($this->sale_lib->get_amount_due(), $this->Giftcard->get_giftcard_value($giftcard_num));
+                $this->sale_lib->add_payment($payment_type, $amount_tendered);
+            }
+        } elseif ($payment_type === $this->lang->line('sales_cash')) {
+            $amount_due = $this->sale_lib->get_total();
+            $sales_total = $this->sale_lib->get_total(FALSE);
+            $amount_tendered = $this->input->post('amount_tendered');
+            $this->sale_lib->add_payment($payment_type, $amount_tendered);
+            $cash_adjustment_amount = $amount_due - $sales_total;
+            if ($cash_adjustment_amount <> 0) {
+                $this->session->set_userdata('cash_mode', CASH_MODE_TRUE);
+                $this->sale_lib->add_payment($this->lang->line('sales_cash_adjustment'), $cash_adjustment_amount, CASH_ADJUSTMENT_TRUE);
+            }
+        } else {
+            $amount_tendered = $this->input->post('amount_tendered');
+            $this->sale_lib->add_payment($payment_type, $amount_tendered);
+        }
+    }
 
-					$payments = $this->sale_lib->get_payments();
-					$payment_type = $payment_type;
-					$current_payments_with_rewards = isset($payments[$payment_type]) ? $payments[$payment_type]['payment_amount'] : 0;
-					$cur_rewards_value = $points;
+    $this->_reload($data);
+}
 
-					if(($cur_rewards_value - $current_payments_with_rewards) <= 0)
-					{
-						$data['error'] = $this->lang->line('rewards_remaining_balance') . to_currency($cur_rewards_value);
-					}
-					else
-					{
-						$new_reward_value = $points - $this->sale_lib->get_amount_due();
-						$new_reward_value = $new_reward_value >= 0 ? $new_reward_value : 0;
-						$this->sale_lib->set_rewards_remainder($new_reward_value);
-						$new_reward_value = str_replace('$', '\$', to_currency($new_reward_value));
-						$data['warning'] = $this->lang->line('rewards_remaining_balance'). $new_reward_value;
-						$amount_tendered = min($this->sale_lib->get_amount_due(), $points);
-
-						$this->sale_lib->add_payment($payment_type, $amount_tendered);
-					}
-				}
-			}
-			elseif($payment_type === $this->lang->line('sales_cash'))
-			{
-				$amount_due = $this->sale_lib->get_total();
-				$sales_total = $this->sale_lib->get_total(FALSE);
-
-				$amount_tendered = $this->input->post('amount_tendered');
-				$this->sale_lib->add_payment($payment_type, $amount_tendered);
-				$cash_adjustment_amount = $amount_due - $sales_total;
-				if($cash_adjustment_amount <> 0)
-				{
-					$this->session->set_userdata('cash_mode', CASH_MODE_TRUE);
-					$this->sale_lib->add_payment($this->lang->line('sales_cash_adjustment'), $cash_adjustment_amount, CASH_ADJUSTMENT_TRUE);
-				}
-			}
-			else
-			{
-				$amount_tendered = $this->input->post('amount_tendered');
-				$this->sale_lib->add_payment($payment_type, $amount_tendered);
-			}
-		}
-
-		$this->_reload($data);
-	}
 
 	// Multiple Payments
 	public function delete_payment($payment_id)

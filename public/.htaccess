@@ -1,7 +1,10 @@
 RewriteEngine On
 
-# To redirect a subdomain to a subdir because of https not supporting wildcards
-# replace values between <> with your ones
+# Define base path for OSPOS
+RewriteBase /ospos/public/
+
+# To redirect a subdomain to a subdir because HTTPS does not support wildcards
+# Replace values between <> with your ones
 # RewriteCond %{HTTP_HOST} ^<OSPOS subdomain>\.<my web domain>\.com$ [OR]
 # RewriteCond %{HTTP_HOST} ^www\.<OSPOS subdomain>\.<my web domain>\.com$
 # RewriteRule ^/?$ "https\:\/\/www\.<my web domain>\.com\/<OSPOS path>" [R=301,L]
@@ -11,18 +14,18 @@ RewriteEngine On
 # RewriteCond %{HTTP_HOST} !^www\..+$ [NC]
 # RewriteCond %{HTTP_HOST} (.+)$ [NC]
 # RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L]
+
+# Fix for query string error (AH10411)
+RewriteCond %{REQUEST_URI} !\s
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-# if in web root
-RewriteRule ^(.*)$ index.php?/$1 [L]
+RewriteRule ^(.*)$ index.php?/$1 [QSA,L]
 
-# if in subdir comment above line, uncomment below one and replace <OSPOS path> with your path
-# RewriteRule ^(.*)$ /<OSPOS path>/public/index.php?/$1 [L]
+# If in a subdirectory, comment the above line and uncomment below one
+# RewriteRule ^(.*)$ /<OSPOS path>/public/index.php?/$1 [QSA,L]
 
-# disable directory browsing
-# For security reasons, Option all cannot be overridden.
-#Options All -Indexes
-Options +ExecCGI +Includes +IncludesNOEXEC +SymLinksIfOwnerMatch -Indexes
+# Disable directory browsing
+Options -Indexes +ExecCGI +Includes +IncludesNOEXEC +SymLinksIfOwnerMatch
 
 <IfModule mod_headers.c>
   Header always set X-Frame-Options "SAMEORIGIN"
@@ -30,32 +33,32 @@ Options +ExecCGI +Includes +IncludesNOEXEC +SymLinksIfOwnerMatch -Indexes
   Header set X-Content-Type-Options "nosniff"
   Header set X-XSS-Protection "1; mode=block"
   Header set X-Frame-Options "DENY"
-</Ifmodule>
+</IfModule>
 
-# prevent folder listing
+# Prevent folder listing
 IndexIgnore *
 
-# Apache 2.4
+# Apache 2.4 security settings
 <IfModule authz_core_module>
-  # secure htaccess file
+  # Secure .htaccess file
   <Files .htaccess>
     Require all denied
   </Files>
-  # prevent access to PHP error log
+  # Prevent access to PHP error log
   <Files error_log>
     Require all denied
   </Files>
 </IfModule>
 
-# Apache 2.2
+# Apache 2.2 security settings
 <IfModule !authz_core_module>
-  # secure htaccess file
+  # Secure .htaccess file
   <Files .htaccess>
     Order allow,deny
     Deny from all
     Satisfy all
   </Files>
-  # prevent access to PHP error log
+  # Prevent access to PHP error log
   <Files error_log>
     Order allow,deny
     Deny from all
@@ -63,6 +66,7 @@ IndexIgnore *
   </Files>
 </IfModule>
 
+# Enable caching for static files
 <IfModule mod_expires.c>
   <FilesMatch "\.(jpe?g|png|gif|js|css)$">
     ExpiresActive On
