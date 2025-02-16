@@ -975,6 +975,9 @@ class Sale extends CI_Model
 	{
 		$payments = get_payment_options();
 
+		// Add MPesa payment option
+		$payments['MPesa'] = 'MPesa';
+
 		if($giftcard == TRUE)
 		{
 			$payments[$this->lang->line('sales_giftcard')] = $this->lang->line('sales_giftcard');
